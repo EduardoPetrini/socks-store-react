@@ -44,7 +44,7 @@ function ProductDisplay(props) {
   const [inStock, setInStock] = useState(() => !!product.variants[product.selectedVariant].quantity);
 
   useEffect(() => {
-    console.log('Product changed...');
+    console.log("Product changed...");
     setInStockText((previousState) => getInStock(product.variants[product.selectedVariant].quantity));
     setInStock((previousState) => !!product.variants[product.selectedVariant].quantity);
   }, [product]);
@@ -55,22 +55,22 @@ function ProductDisplay(props) {
   const shipping = premium ? "free" : 2.99;
 
   const selectVariant = (index) => {
-    console.log('Select variant...');
-    setProduct((previousState) => ({ ...previousState, selectedVariant: index }))
+    console.log("Select variant...");
+    setProduct((previousState) => ({ ...previousState, selectedVariant: index }));
     setImage((previousState) => product.variants[index].image);
   };
 
-  const clickAddToCart= ()=>{
+  const clickAddToCart = () => {
     addToCart(product.variants[product.selectedVariant]);
     product.variants[product.selectedVariant].quantity -= 1;
     setProduct((previousState) => ({ ...previousState, ...product }));
-  }
+  };
 
-  const clickRemoveFromCart= ()=>{
+  const clickRemoveFromCart = () => {
     removeFromCart(product.variants[product.selectedVariant].id);
     product.variants[product.selectedVariant].quantity += 1;
     setProduct((previousState) => ({ ...previousState, ...product }));
-  }
+  };
 
   return (
     <div className="product-display">
@@ -91,12 +91,18 @@ function ProductDisplay(props) {
             <div key={index} onMouseOver={() => selectVariant(index)} className="color-circle" style={{ backgroundColor: variant.color }}></div>
           ))}
 
-          {product.sizes.map((size, index) =>
-            <div key={index} className={`${size.out ? "class-disabled" : ""}`}>{size.size}</div>
-          )}
+          {product.sizes.map((size, index) => (
+            <div key={index} className={`${size.out ? "class-disabled" : ""}`}>
+              {size.size}
+            </div>
+          ))}
 
-          <button className={`button ${inStock ? "" : "disabled-button"}`} onClick={clickAddToCart} disabled={!inStock}>Add to Cart</button>
-          <button className={`button ${cartSize === 0 ? "disabled-button" : ""}`} onClick={clickRemoveFromCart} disabled={cartSize === 0}>Remove from Cart</button>
+          <button className={`button ${inStock ? "" : "disabled-button"}`} onClick={clickAddToCart} disabled={!inStock}>
+            Add to Cart
+          </button>
+          <button className={`button ${cartSize === 0 ? "disabled-button" : ""}`} onClick={clickRemoveFromCart} disabled={cartSize === 0}>
+            Remove from Cart
+          </button>
         </div>
       </div>
     </div>
