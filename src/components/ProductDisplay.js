@@ -52,9 +52,6 @@ function ProductDisplay(props) {
   const title = `${product.brand} ${product.name}`;
   const onSale = product.onSale ? <p>On Sale</p> : "";
 
-  // const inStockText = getInStock(product.variants[product.selectedVariant].quantity);
-  // const inStock = !!product.variants[product.selectedVariant].quantity
-
   const shipping = premium ? "free" : 2.99;
 
   const selectVariant = (index) => {
