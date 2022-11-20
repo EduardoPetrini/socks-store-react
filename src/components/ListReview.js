@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 function ListReview(props) {
   const { reviews = [] } = props;
   console.log(`List reviews: ${JSON.stringify(reviews)}`);
