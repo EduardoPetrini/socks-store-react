@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+import ListReview from "./ListReview";
 import ProductDetails from "./ProductDetails";
+import ReviewForm from "./ReviewForm";
 
 function getProduct() {
   return {
@@ -42,6 +44,7 @@ function ProductDisplay(props) {
   const [image, setImage] = useState(() => product.variants[product.selectedVariant].image);
   const [inStockText, setInStockText] = useState(() => getInStock(product.variants[product.selectedVariant].quantity));
   const [inStock, setInStock] = useState(() => !!product.variants[product.selectedVariant].quantity);
+  const [reviews, setReviews] = useState(()=>[]);
 
   useEffect(() => {
     console.log("Product changed...");
@@ -71,6 +74,10 @@ function ProductDisplay(props) {
     product.variants[product.selectedVariant].quantity += 1;
     setProduct((previousState) => ({ ...previousState, ...product }));
   };
+
+  const addReview = (review) => {
+    setReviews((previousState) => [...previousState, review]);
+  }
 
   return (
     <div className="product-display">
@@ -105,6 +112,8 @@ function ProductDisplay(props) {
           </button>
         </div>
       </div>
+      <ListReview reviews={reviews}></ListReview>
+      <ReviewForm addReview={addReview} ></ReviewForm>
     </div>
   );
 }
